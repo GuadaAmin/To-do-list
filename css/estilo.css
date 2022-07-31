@@ -32,11 +32,12 @@ h1 {
 }
 
 h3 {
-    margin: 1rem 0 1rem 0;
+    margin: .5rem 0 .5rem 0;
+    text-decoration: underline;
 }
 
-p {
-    padding: .4rem;
+.instrucciones {
+    padding-top: .5rem;
 }
 
 textarea {
@@ -51,25 +52,24 @@ button {
     background-color: rgb(192, 231, 238);
     border-color: black;
     padding: .4rem;
+    margin-left: .3rem;
     border-radius: 10%;
 }
 
-#contenedorTareas {
-    display: block;
+#boxResultados {
+    padding-top: .5rem;
 }
 
 /* Todo lo siguiente es para estilizar la sección de buscar */
 
-#textBuscar {
-    border: black solid 2px;
-    border-radius: 2%;
-    padding: .5rem .5rem 0 .5rem; 
+#boxBuscar {
+    padding: .5rem .5rem 0 0; 
     margin-bottom: .5rem;
     display: grid;
     grid-template-columns: 5fr 1fr;
     grid-template-rows: 1fr;
-    gap: .5rem;
-    grid-template-areas: "buscar botonB"
+    grid-template-areas: 
+    "buscar botonB"
 }
 #aBuscar {
     grid-area: buscar;
@@ -82,26 +82,19 @@ button {
     width: 100%;
 }
 
-#textBuscar li {
+#boxBuscar li {
     margin: .5rem 1rem 1rem 1rem;
 }
 
-/* Fin de estilos para la sección de buscar, todo lo siguiente es para estilizar la sección de nueva tarea */
+/* Fin de estilos para la sección de buscar, todo lo siguiente es para estilizar el botón de nueva tarea */
 
-#textNuevo {
-    border: black solid 2px;
-    border-radius: 2%;
-    padding: .5rem;
+#boxNuevo {
+    padding: 0 .5rem 0 0;
     display: grid;
     grid-template-columns: 5fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: .5rem;
+    grid-template-rows: 1fr;
     grid-template-areas: 
-    "titulo botonT"
     "tarea botonT";
-}
-#inputTitulo {
-    grid-area: titulo;
 }
 #inputTarea {
     grid-area: tarea;

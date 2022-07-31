@@ -6,24 +6,32 @@ const alertafire = () => {
   })
 }
 
-const mostrar = document.querySelector("#contenedorTareas");
+const catchfire = () => {
+  Swal.fire({
+    icon: 'error',
+    title: '¡Error!',
+    text: 'No se pudo reconocer tu identidad',
+  })
+}
+
+const mostrar = document.querySelector("#boxTareas");
 
 const mostrarTareas = () => {
-  mostrar.innerHTML = "<h3>Tareas:</h3>";
+  tareas.forEach((tar) => {
+    const tareaNueva = tar || alertafire()
+    if (tareaNueva !== undefined) {
+      const tareaDiv = document.createElement("div");
+      const tareaT = document.createElement("p");
+      tareaT.className = "animate__animated animate__fadeInUp";
+      tareaT.innerText = inputTar.value;
+      mostrar.append(tareaDiv);
+      mostrar.appendChild(tareaT);
 
-  tareas.forEach((tareaN) => {
-    const tituloNuevo = tareaN.titulo || alertafire()
-    const tareaNueva = tareaN.tar || alertafire()
-    if (tituloNuevo !== undefined && tareaNueva !== undefined) {
-      const tareaM = 
-      `<div class="elemento">
-      <input type="checkbox" for="lista" class="checkbox">
-      <label for="lista" class="animate__animated animate__fadeInUp"><b>${tituloNuevo}:</b> ${tareaNueva}</label>
-      </div>` 
-
-      mostrar.innerHTML += tareaM;
+      tareaT.addEventListener("dblclick", () => {
+        mostrar.removeChild(tareaDiv);
+        mostrar.removeChild(tareaT);
+      })
     }
-    document.querySelector("#inputTitulo").value = "";
     document.querySelector("#inputTar").value = "";
   }); 
 }
@@ -33,21 +41,11 @@ const mostrarResultadoBuscar = () => {
   resultadoBuscarhtml.innerHTML = "";
 
   const inputBuscar = document.querySelector("#aBuscar").value;
-  const resultadoBusquedaTar = tareas.find((Tarea) => Tarea.tar.includes(inputBuscar));
-  const resultadoBusquedaTitulo = tareas.find((Tarea) => Tarea.titulo.includes(inputBuscar));
+  const resultadoBusqueda = tareas.find((tareas) => tareas.includes(inputBuscar));
 
-  if (tareas.find((Tarea) => Tarea.titulo.includes(inputBuscar))) {
-    const resultadoBuscarTitulo = 
-    `<ul class="animate__animated animate__fadeInUp">
-    <li>${resultadoBusquedaTitulo.titulo}: ${resultadoBusquedaTitulo.tar}</li>
-    </ul>`;
-    resultadoBuscarhtml.innerHTML += resultadoBuscarTitulo;   
-  } else if (tareas.find((Tarea) => Tarea.tar.includes(inputBuscar))) {
-    const resultadoBuscarTar = 
-    `<ul class="animate__animated animate__fadeInUp">
-    <li>${resultadoBusquedaTar.titulo}: ${resultadoBusquedaTar.tar}</li>
-    </ul>`;
-    resultadoBuscarhtml.innerHTML += resultadoBuscarTar;
+  if (tareas.find((tareas) => tareas.includes(inputBuscar))) {
+    const resultadoBuscar = `<p class="animate__animated animate__fadeInUp">${resultadoBusqueda}</p>`;
+    resultadoBuscarhtml.innerHTML += resultadoBuscar;
   } else {
     resultadoBuscarhtml.innerHTML = `<p class="animate__animated animate__fadeInUp">No hay coincidencias</p>`;
   }
@@ -61,31 +59,47 @@ const guardarTareas = () => {
 
 const recuperarTareas = () =>  {
   tareasR = JSON.parse(localStorage.getItem("tareas"));
-  const recuperarTitulo = document.createElement("h3");
-  recuperarTitulo.innerText = "Tareas:";
-  mostrar.append(recuperarTitulo);
   mostrar.innerHTML = "<h3><b>Tareas:</b></h3>";
 
-  tareasR.forEach(tarea => {
-    const tareaRecuperadaDiv = document.createElement("div");
-    tareaRecuperadaDiv.className = "elemento";
-    const tareaRecuperadaCheckbox = document.createElement("input");
-    tareaRecuperadaCheckbox.type = "checkbox";
-    const tareaRecuperada = document.createElement("label");
-    tareaRecuperada.className = "animate__animated animate__fadeInUp";
-    tareaRecuperada.innerText = " " + tarea.titulo + ": " + tarea.tar;
-    mostrar.append(tareaRecuperadaDiv);
-    mostrar.appendChild(tareaRecuperadaCheckbox);
-    mostrar.appendChild(tareaRecuperada);
+  tareasR.forEach(tar => {
+    const tareaDiv = document.createElement("div");
+    const tareaT = document.createElement("p");
+    tareaT.className = "animate__animated animate__fadeInUp";
+    tareaT.innerText = tar;
+    mostrar.append(tareaDiv);
+    mostrar.appendChild(tareaT);
+    tareas.push(tar);
+    guardarTareas()
+
+    tareaT.addEventListener("dblclick", () => {
+      mostrar.removeChild(tareaDiv);
+      mostrar.removeChild(tareaT);
+      tareas.remove();
+      guardarTareas()
+    })
   });
 }
 
-// const eliminarTarea = () => {
-//   let aEliminar = document.querySelector("input[type:'checkbox']:checked"); 
-//   aEliminar.remove();
-//   item = tareas.indexOf(aEliminar.innerText);
-//   if (item >= 0) {
-//       tareas.splice(item, 1);
-//       guardarTareas();
-//   }
+// const URL = "./usuario.json";
+
+// const identificador = (info) => {
+//   const {nombre, apellido} = info
+//   const usuario = document.querySelector("#contenedorUsuario");
+//   const mostrarNombre = `<p>De ${nombre} ${apellido}</p>;`
+//   usuario.innerHTML += mostrarNombre;
 // }
+
+// const obtenerIdentificador = (URL)=> {
+//   debugger
+//   fetch(URL)
+//   .then((response) => response.json())
+//   .then((data) => {
+//     for (info of data) {
+//       identificador()
+//     }
+//   })
+//   .catch(() => {
+//     catchfire()
+//   })
+// }
+

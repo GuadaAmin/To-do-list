@@ -14,24 +14,24 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="./js/funciones.js"></script>
     <script defer src="./js/main.js"></script>
-    <script defer src="./js/objetos.js"></script>
     <title>To-do list</title>
 </head>
 <body>
     <div id="contenedorGeneral">
         <div id="contenedorHijo">
             <h1>To-do list</h1>
-            <div id="textBuscar">
+            <div id="contenedorUsuario"></div>
+            <div id="boxBuscar">
                 <textarea id="aBuscar" placeholder="Busca una tarea"></textarea>
                 <button id="botonBuscar"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <div id="boxResultados"></div>
             </div>
-            <div id="textNuevo">
-                <textarea id="inputTitulo" class="titulo" placeholder="Ingrese un título para su tarea"></textarea>
+            <div id="boxNuevo">
                 <textarea id="inputTar" placeholder="Ingrese su nueva tarea"></textarea>
                 <button id="botonAnadir">Añadir</button>
             </div>
-            <div id="contenedorTareas"></div>
+            <p class="instrucciones">Haz doble click en una tarea para eliminarla</p>
+            <div id="boxTareas"></div>
         </div>
     </div>
 </body>
