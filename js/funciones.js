@@ -1,11 +1,3 @@
-const alertafire = () => {
-  Swal.fire({
-    icon: 'error',
-    title: '¡Error!',
-    text: 'Completa todo los datos',
-  })
-}
-
 const catchfire = () => {
   Swal.fire({
     icon: 'error',
@@ -18,7 +10,7 @@ const mostrar = document.querySelector("#boxTareas");
 
 const mostrarTareas = () => {
   tareas.forEach((tar) => {
-    const tareaNueva = tar || alertafire()
+    const tareaNueva = tar
     if (tareaNueva !== undefined) {
       const tareaDiv = document.createElement("div");
       const tareaT = document.createElement("p");
@@ -69,37 +61,41 @@ const recuperarTareas = () =>  {
     mostrar.append(tareaDiv);
     mostrar.appendChild(tareaT);
     tareas.push(tar);
-    guardarTareas()
 
     tareaT.addEventListener("dblclick", () => {
       mostrar.removeChild(tareaDiv);
       mostrar.removeChild(tareaT);
-      tareas.remove();
-      guardarTareas()
+
+      item = tareas.indexOf(tar);
+      if (item >= 0) {
+          tareas.splice(item, 1);
+          guardarTareas();
+      }
     })
+    guardarTareas()
   });
 }
 
-// const URL = "./usuario.json";
+const URL = "./js/usuario.json";
 
-// const identificador = (info) => {
-//   const {nombre, apellido} = info
-//   const usuario = document.querySelector("#contenedorUsuario");
-//   const mostrarNombre = `<p>De ${nombre} ${apellido}</p>;`
-//   usuario.innerHTML += mostrarNombre;
-// }
+const identificador = (info) => {
+  const {nombre, apellido} = info
+  const usuario = document.querySelector("#contenedorUsuario");
+  const mostrarNombre = `<p>De ${nombre} ${apellido}</p>`;
+  usuario.innerHTML += mostrarNombre;
+}
 
-// const obtenerIdentificador = (URL)=> {
-//   debugger
-//   fetch(URL)
-//   .then((response) => response.json())
-//   .then((data) => {
-//     for (info of data) {
-//       identificador()
-//     }
-//   })
-//   .catch(() => {
-//     catchfire()
-//   })
-// }
+const obtenerIdentificador = ()=> {
+  fetch(URL)
+  .then((response) => response.json())
+  .then((data) => {
+    for (info of data) {
+      identificador(info)
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    catchfire()
+  })
+}
 
