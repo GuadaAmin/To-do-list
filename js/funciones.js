@@ -22,7 +22,14 @@ const mostrarTareas = () => {
       tareaT.addEventListener("dblclick", () => {
         mostrar.removeChild(tareaDiv);
         mostrar.removeChild(tareaT);
+  
+        item = tareas.indexOf(tar);
+        if (item >= 0) {
+            tareas.splice(item, 1);
+            guardarTareas();
+        }
       })
+      guardarTareas()
     }
     document.querySelector("#inputTar").value = "";
   }); 
